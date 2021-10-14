@@ -1,3 +1,5 @@
+# BME280.py
+# Ausgabe als String 
 from machine import I2C
 import time
 
@@ -266,7 +268,8 @@ class BME280:
     t = self.read_temperature()
     ti = t // 100
     td = t - ti * 100
-    return "{}.{:02d}C".format(ti, td)
+    #return "{}.{:02d}C".format(ti, td)
+    return ti + td/100
 
   @property
   def pressure(self):
@@ -274,7 +277,8 @@ class BME280:
     p = self.read_pressure() // 256
     pi = p // 100
     pd = p - pi * 100
-    return "{}.{:02d}hPa".format(pi, pd)
+    #return "{}.{:02d}hPa".format(pi, pd)
+    return pi+ pd/100
 
   @property
   def humidity(self):
@@ -282,4 +286,5 @@ class BME280:
     h = self.read_humidity()
     hi = h // 1024
     hd = h * 100 // 1024 - hi * 100
-    return "{}.{:02d}%".format(hi, hd)
+    #return "{}.{:02d}%".format(hi, hd)
+    return hi+ hd/100
