@@ -7,8 +7,8 @@ from machine import I2C,Pin
 
 # ssid = 'cgawron'
 # password = 'Schuelerlabor'
-ssid = 'dk2jk'
-password = 'dk2jk X1'
+ssid = 'deine_ssid'
+password = 'dein_passwort'
 #mqtt_server = 'broker.hivemq.com'
 mqtt_server = "18.194.65.151"
 
