@@ -6,12 +6,12 @@
 from umqtt.simple import MQTTClient
 from timer import Timer
 import time
-from BME280_1 import *
+from BME280_1 import BME280
 from machine import I2C,Pin
 
 # bme
 i2c = I2C(scl=Pin(5), sda=Pin(4), freq=100000)
-bme = BME280(address=0x77, i2c=i2c)
+bme = BME280(address=0x77, i2c=i2c)    # abweichend vom standard: adr=0x77
 
 # thingspeak
 SERVER = "mqtt.thingspeak.com"
@@ -30,11 +30,6 @@ def send():
     client.connect()
     client.publish(topic, payload)
     client.disconnect()
+    print("Daten an Thingspeak gesendet", zeit())
 
-timer1= Timer(15) # alle 15 sec
-while True:
-    if timer1.event():
-        send()
-        x= time.gmtime()               
-        print(" Daten an thingspeak gesendet", zeit() )
-              
+

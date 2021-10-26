@@ -1,6 +1,3 @@
-# BME280_1.py
-# Ausgabe als float
-
 from machine import I2C
 import time
 

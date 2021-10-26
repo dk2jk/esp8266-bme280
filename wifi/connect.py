@@ -1,15 +1,26 @@
 import network
 from my_wlan import WiFi_SSID, WiFi_PW
+from timer import Timer
+from time import sleep
 
-def do_connect():
-    wlan = network.WLAN(network.STA_IF)
+TIMEOUT=3 #sec
+timeout= Timer(TIMEOUT)
+wlan = network.WLAN(network.STA_IF)
+
+def do_connect():   
     wlan.active(True)
-    if not wlan.isconnected():
-        print('connecting to network...')
+    print('verbunden mit :',end=' ')    
+    timeout.set(TIMEOUT)
+    while wlan.isconnected() == False:
         wlan.connect(WiFi_SSID, WiFi_PW)
-        while not wlan.isconnected():
-            pass
-    print('network config:', wlan.ifconfig())
+        sleep(.33)
+        print('.', end = '')
+        if timeout.event():
+            print('\nnetwork timeout nach {} sekunden'.format(TIMEOUT))
+            wlan.disconnect()
+            return False
+    print( wlan.ifconfig())
+    return True
 
 if __name__ =='__main__':
     do_connect()
